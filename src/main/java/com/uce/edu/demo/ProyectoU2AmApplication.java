@@ -6,8 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.service.IPersonaJdbcService;
-import com.uce.edu.demo.to.Persona;
+import com.uce.edu.demo.tarea13.service.IEstudianteJdbcService;
+import com.uce.edu.demo.tarea13.to.Estudiante;
 
 @SpringBootApplication
 public class ProyectoU2AmApplication implements CommandLineRunner {
@@ -15,7 +15,7 @@ public class ProyectoU2AmApplication implements CommandLineRunner {
 	private static final Logger LOG = Logger.getLogger(ProyectoU2AmApplication.class);
 
 	@Autowired
-	private IPersonaJdbcService iPersonaJdbcService;
+	private IEstudianteJdbcService estudianteJdbcService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2AmApplication.class, args);
@@ -23,27 +23,37 @@ public class ProyectoU2AmApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		// Insertar
-		Persona p1 = new Persona();
-		p1.setId(2);
-		p1.setNombre("Nicolas");
-		p1.setApellido("Nashe");
-//		this.iPersonaJdbcService.guardar(p1);
 
-		// Actualizar
-		Persona p2 = new Persona();
-		p2.setId(3);
-		p2.setNombre("A");
-		p2.setApellido("B");
-//		this.iPersonaJdbcService.actualizar(p2);
+		// Insertar estudiante
+		LOG.info("\n  1. Insertar Estudiante");
 
-		// Eliminar
-//		this.iPersonaJdbcService.eliminar(3);
+		Estudiante e = new Estudiante();
+		e.setCedula("1750844787");
+		e.setNombre("Ariel");
+		e.setApellido("Malnado");
+		e.setEdad(21);
+		e.setSemestre("Quinto");
 
-		// Buscar
-		Persona p = this.iPersonaJdbcService.buscar(1);
-		LOG.info(p);
+		this.estudianteJdbcService.crear(e);
+
+		// Actualizar Estudiante
+		LOG.info("\n  2. Actualizar Estudiante");
+
+		e.setApellido("Maldonado");
+		e.setSemestre("Sexto");
+
+		this.estudianteJdbcService.renovarInformacion(e);
+
+		// Eliminar Estudiante
+		LOG.info("\n  3. Eliminar Estudiante");
+
+		this.estudianteJdbcService.eliminarRegistro("1010101010");
+
+		// Buscar Estudiante
+		LOG.info("\n  4. Buscar Estudiante");
+
+		Estudiante est_busqueda = this.estudianteJdbcService.consultar("1710738384");
+		LOG.info("Se encontro al estudiante: " + est_busqueda);
 
 	}
 
