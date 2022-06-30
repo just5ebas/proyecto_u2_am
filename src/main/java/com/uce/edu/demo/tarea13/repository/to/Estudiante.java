@@ -1,17 +1,34 @@
-package com.uce.edu.demo.tarea13.to;
+package com.uce.edu.demo.tarea13.repository.to;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "estudiante")
 public class Estudiante {
 
+	@Id
+	@Column(name = "cedula")
 	private String cedula;
+
+	@Column(name = "nombre")
 	private String nombre;
+
+	@Column(name = "apellido")
 	private String apellido;
-	private int edad;
+
+	@Column(name = "edad")
+	private Integer edad;
+
+	@Column(name = "semestre")
 	private String semestre;
 
 	public Estudiante() {
 	}
 
-	public Estudiante(String cedula, String nombre, String apellido, int edad, String semestre) {
+	public Estudiante(String cedula, String nombre, String apellido, Integer edad, String semestre) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
@@ -51,11 +68,11 @@ public class Estudiante {
 		this.apellido = apellido;
 	}
 
-	public int getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 

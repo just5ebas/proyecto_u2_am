@@ -6,9 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.service.IPersonaJdbcService;
-import com.uce.edu.demo.service.IPersonaJpaService;
+import com.uce.edu.demo.tarea13.repository.to.Estudiante;
+import com.uce.edu.demo.tarea13.service.IEstudianteJpaService;
 
 @SpringBootApplication
 public class ProyectoU2AmApplication implements CommandLineRunner {
@@ -16,10 +15,7 @@ public class ProyectoU2AmApplication implements CommandLineRunner {
 	private static final Logger LOG = Logger.getLogger(ProyectoU2AmApplication.class);
 
 	@Autowired
-	private IPersonaJdbcService iPersonaJdbcService;
-
-	@Autowired
-	private IPersonaJpaService iPersonaJpaService;
+	private IEstudianteJpaService estudianteJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2AmApplication.class, args);
@@ -28,28 +24,32 @@ public class ProyectoU2AmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-//		LOG.info(this.iPersonaJdbcService.buscarTodos());
+		// 1. Insertar
+		Estudiante e1 = new Estudiante();
+		e1.setCedula("1728394560");
+		e1.setNombre("Carolina");
+		e1.setApellido("Tito");
+		e1.setEdad(24);
+		e1.setSemestre("Tercero");
 
-		// Buscar
-//		LOG.info("Dato con JPA: " + this.iPersonaJpaService.buscar(2));
+		this.estudianteJpaService.crear(e1);
 
-		// Insertar
-		Persona p = new Persona();
-		p.setId(6);
-		p.setNombre("Edison");
-		p.setApellido("Cayambe");
+		// 2. Actualizar
+		Estudiante e2 = new Estudiante();
+		e2.setCedula("1750844787");
+		e2.setNombre("Ariel");
+		e2.setApellido("Maldonado");
+		e2.setEdad(22);
+		e2.setSemestre("Sexto");
 
-//		this.iPersonaJpaService.guardar(p);
+		this.estudianteJpaService.renovarInformacion(e2);
 
-		// Actualizar
-		Persona p1 = new Persona();
-		p1.setId(2);
-		p1.setNombre("Javier");
-		p1.setApellido("Diaz");
-//		this.iPersonaJpaService.actualizar(p1);
+		// 3. Eliminar
+		this.estudianteJpaService.eliminarRegistro("1710738384");
 
-		// Eliminar
-		this.iPersonaJpaService.eliminar(6);
+		// 4. Buscar
+		Estudiante e3 = this.estudianteJpaService.consultar("1750844787");
+		LOG.info("Se encontro al estudiante: " + e3);
 
 	}
 

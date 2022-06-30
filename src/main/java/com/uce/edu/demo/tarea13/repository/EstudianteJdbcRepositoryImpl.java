@@ -6,12 +6,12 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.uce.edu.demo.tarea13.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.to.Estudiante;
 
 @Repository
-public class EstudianteRepositoryImpl implements IEstudianteJdbcRepository {
+public class EstudianteJdbcRepositoryImpl implements IEstudianteJdbcRepository {
 
-	private static final Logger LOG = Logger.getLogger(EstudianteRepositoryImpl.class);
+	private static final Logger LOG = Logger.getLogger(EstudianteJdbcRepositoryImpl.class);
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

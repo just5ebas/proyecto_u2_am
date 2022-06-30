@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.tarea13.repository.IEstudianteJdbcRepository;
-import com.uce.edu.demo.tarea13.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.to.Estudiante;
 
 @Service
-public class EstudianteServiceImpl implements IEstudianteJdbcService {
+public class EstudianteJdbcServiceImpl implements IEstudianteJdbcService {
 
 	@Autowired
 	private IEstudianteJdbcRepository estudianteJdbcRepository;

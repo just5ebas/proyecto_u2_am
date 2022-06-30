@@ -2,7 +2,7 @@ package com.uce.edu.demo.tarea13.repository;
 
 import com.uce.edu.demo.tarea13.repository.to.Estudiante;
 
-public interface IEstudianteJdbcRepository {
+public interface IEstudianteJpaRepository {
 
 	public void insertar(Estudiante e);
 
