@@ -57,8 +57,17 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 	@Override
 	public List<Persona> buscarPorGenero(String genero) {
 		// SELECT * FROM persona WHERE pers_genero = _;
-		// Deber
-		return null;
+		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.genero = :dato_genero");
+		myQuery.setParameter("dato_genero", genero);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Persona> buscarPorNombre(String nombre) {
+		// SELECT * FROM persona WHERE pers_nombre = _;
+		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.nombre = :nombre");
+		myQuery.setParameter("nombre", nombre);
+		return myQuery.getResultList();
 	}
 
 }
