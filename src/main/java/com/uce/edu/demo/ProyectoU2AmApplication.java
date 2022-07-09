@@ -1,14 +1,11 @@
 package com.uce.edu.demo;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Persona;
 import com.uce.edu.demo.service.IPersonaJpaService;
 
 @SpringBootApplication
@@ -26,48 +23,15 @@ public class ProyectoU2AmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// BUSCAR POR ID
-//		LOG.info("Dato con JPA: " + this.iPersonaJpaService.buscar(1));
+		// ACTUALIZAR POR APELLIDO CON JPQL
+		int resultado = this.iPersonaJpaService.actualizarPorApellido("MA", "Maldonado");
 
-		// GUARDAR
-//		Persona p = new Persona();
-//		p.setCedula("1311365441");
-//		p.setNombre("Manuel");
-//		p.setApellido("Perreo");
-//		p.setGenero("M");
-//		this.iPersonaJpaService.guardar(p);
+		LOG.info("Cantidad de registros actualizados: " + resultado);
 
-		// ACTUALIZAR
-//		Persona p1 = new Persona();
-//		p1.setId(3);
-//		p1.setNombre("EdisonA");
-//		p1.setApellido("CayambeA");
-//		this.iPersonaJpaService.actualizar(p1);
+		// ELIMINAR POR GENERO CON JPQL
+		int resul = this.iPersonaJpaService.eliminarPorGenero("M");
 
-		// ELIMINAR
-//		this.iPersonaJpaService.eliminar(6);
-
-		// BUSCAR POR CEDULA
-//		Persona pBusc = this.iPersonaJpaService.buscarXCedula("1750844787");
-//		LOG.info("Resultado encontrado: " + pBusc);
-
-		// BUSCAR POR APELLIDO
-//		List<Persona> lista = this.iPersonaJpaService.buscarXApellido("Maldonado");
-//		for (Persona persLista : lista) {
-//			LOG.info("Persona de la lista: " + persLista);
-//		}
-
-		// BUSCAR POR NOMBRE
-		List<Persona> listaNombre = this.iPersonaJpaService.buscarXNombre("Ariel");
-		for (Persona persLista : listaNombre) {
-			LOG.info("Búsqueda por nombre: " + persLista);
-		}
-
-		// BUSCAR POR GENERO
-		List<Persona> listaGenero = this.iPersonaJpaService.buscarXGenero("M");
-		for (Persona persLista : listaGenero) {
-			LOG.info("Búsqueda por genero: " + persLista);
-		}
+		LOG.info("Cantidad de registros eliminados: " + resul);
 
 	}
 
