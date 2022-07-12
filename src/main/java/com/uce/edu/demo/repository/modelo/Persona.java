@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -12,7 +14,11 @@ import org.hibernate.annotations.GenerationTime;
 
 @Entity
 @Table(name = "persona")
-//@Table(name = "persona1")
+@NamedQuery(name = "Persona.buscarPorCedula", query = "SELECT p FROM Persona p WHERE p.cedula = :dato_cedula")
+@NamedQuery(name = "Persona.buscarPorNombreApellido", query = "SELECT p FROM Persona p WHERE p.nombre = :dato_nombre AND p.apellido = :dato_apellido")
+//@NamedQueries({
+//		@NamedQuery(name = "Persona.buscarPorCedula", query = "SELECT p FROM Persona p WHERE p.cedula = :dato_cedula"),
+//		@NamedQuery(name = "Persona.buscarPorNombreApellido", query = "SELECT p FROM Persona p WHERE p.nombre = :dato_nombre AND p.apellido = :dato_apellido") })
 public class Persona {
 
 	@Id

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -47,10 +48,41 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 	}
 
 	@Override
+	public Persona buscarPorCedulaTyped(String cedula) {
+		TypedQuery<Persona> myTypedQuery = this.entityManager
+				.createQuery("SELECT p FROM Persona p WHERE p.cedula = :dato_cedula", Persona.class);
+		myTypedQuery.setParameter("dato_cedula", cedula);
+		return myTypedQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaNamed(String cedula) {
+		Query myQuery = this.entityManager.createNamedQuery("Persona.buscarPorCedula");
+		myQuery.setParameter("dato_cedula", cedula);
+		return (Persona) myQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaTypedNamed(String cedula) {
+		TypedQuery<Persona> myQuery = this.entityManager.createNamedQuery("Persona.buscarPorCedula", Persona.class);
+		myQuery.setParameter("dato_cedula", cedula);
+		return myQuery.getSingleResult();
+	}
+
+	@Override
 	public List<Persona> buscarPorApellido(String apellido) {
 		// SELECT * FROM persona WHERE pers_apellido = _;
 		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.apellido = :apellido");
 		myQuery.setParameter("apellido", apellido);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Persona> buscarPorNombreApellido(String nombre, String apellido) {
+		TypedQuery<Persona> myQuery = this.entityManager.createNamedQuery("Persona.buscarPorNombreApellido",
+				Persona.class);
+		myQuery.setParameter("dato_nombre", nombre);
+		myQuery.setParameter("dato_apellido", apellido);
 		return myQuery.getResultList();
 	}
 
@@ -73,7 +105,8 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 	@Override
 	public int actualizarPorApellido(String genero, String apellido) {
 //		UPDATE persona SET pers_genero = 'M' WHERE pers_apellido='Maldonado'
-		Query myQuery = this.entityManager.createQuery("UPDATE Persona p SET p.genero = :genero WHERE p.apellido = :apellido");
+		Query myQuery = this.entityManager
+				.createQuery("UPDATE Persona p SET p.genero = :genero WHERE p.apellido = :apellido");
 		myQuery.setParameter("genero", genero);
 		myQuery.setParameter("apellido", apellido);
 		return myQuery.executeUpdate(); // devuelve el total de filas actualizadas
