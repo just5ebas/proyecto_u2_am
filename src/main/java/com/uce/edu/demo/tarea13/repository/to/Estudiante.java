@@ -3,10 +3,15 @@ package com.uce.edu.demo.tarea13.repository.to;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "estudiante")
+@NamedQuery(name = "Estudiante.buscarPorApellido", query = "SELECT e FROM Estudiante e WHERE e.apellido = :dato_apellido ORDER BY e.apellido")
+@NamedQuery(name = "Estudiante.buscarPorNombre", query = "SELECT e FROM Estudiante e WHERE e.nombre = :dato_nombre ORDER BY e.nombre")
+@NamedQuery(name = "Estudiante.buscarPorSemestre", query = "SELECT e FROM Estudiante e WHERE e.semestre = :dato_semestre1 OR e.semestre = :dato_semestre2 ORDER BY e.semestre")
+@NamedQuery(name = "Estudiante.buscarPorEdad", query = "SELECT e FROM Estudiante e WHERE e.edad BETWEEN :dato_edad1 AND :dato_edad2 ORDER BY e.edad")
 public class Estudiante {
 
 	@Id
