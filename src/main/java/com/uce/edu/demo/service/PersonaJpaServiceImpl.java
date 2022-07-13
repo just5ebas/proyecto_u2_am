@@ -63,6 +63,18 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService {
 	}
 
 	@Override
+	public Persona buscarXCedulaNative(String cedula) {
+		// TODO Auto-generated method stub
+		return this.iPersonaJpaRepository.buscarPorCedulaNative(cedula);
+	}
+
+	@Override
+	public Persona buscarXCedulaNamedNative(String cedula) {
+		// TODO Auto-generated method stub
+		return this.iPersonaJpaRepository.buscarPorCedulaNamedNative(cedula);
+	}
+
+	@Override
 	public List<Persona> buscarXApellido(String apellido) {
 		// TODO Auto-generated method stub
 		return this.iPersonaJpaRepository.buscarPorApellido(apellido);
