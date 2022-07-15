@@ -3,6 +3,7 @@ package com.uce.edu.demo.tarea13.repository.to;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -12,6 +13,8 @@ import javax.persistence.Table;
 @NamedQuery(name = "Estudiante.buscarPorNombre", query = "SELECT e FROM Estudiante e WHERE e.nombre = :dato_nombre ORDER BY e.nombre")
 @NamedQuery(name = "Estudiante.buscarPorSemestre", query = "SELECT e FROM Estudiante e WHERE e.semestre = :dato_semestre1 OR e.semestre = :dato_semestre2 ORDER BY e.semestre")
 @NamedQuery(name = "Estudiante.buscarPorEdad", query = "SELECT e FROM Estudiante e WHERE e.edad BETWEEN :dato_edad1 AND :dato_edad2 ORDER BY e.edad")
+@NamedNativeQuery(name = "Estudiante.buscarPorCedulaNative", query = "SELECT * FROM estudiante WHERE cedula = :dato_cedula", resultClass = Estudiante.class)
+@NamedNativeQuery(name = "Estudiante.buscarPorSemestreNative", query = "SELECT * FROM estudiante WHERE semestre = :dato1_semestre OR semestre = :dato2_semestre", resultClass = Estudiante.class)
 public class Estudiante {
 
 	@Id

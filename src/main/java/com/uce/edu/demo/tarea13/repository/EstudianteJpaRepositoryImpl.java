@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
+import com.uce.edu.demo.repository.modelo.Persona;
 import com.uce.edu.demo.tarea13.repository.to.Estudiante;
 
 @Repository
@@ -88,6 +89,38 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 				Estudiante.class);
 		myQuery.setParameter("dato_edad1", edad1);
 		myQuery.setParameter("dato_edad2", edad2);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public Estudiante buscarPorCedulaNative(String cedula) {
+		Query myQuery = this.entityManager.createNativeQuery("SELECT * FROM estudiante WHERE cedula = :dato_cedula",
+				Estudiante.class);
+		myQuery.setParameter("dato_cedula", cedula);
+		return (Estudiante) myQuery.getSingleResult();
+
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestreNative(String semestre1, String semestre2) {
+		Query myQuery = this.entityManager.createNativeQuery("SELECT * FROM estudiante WHERE semestre = :dato1_semestre OR semestre = :dato2_semestre", Estudiante.class);
+		myQuery.setParameter("dato1_semestre", semestre1);
+		myQuery.setParameter("dato2_semestre", semestre2);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public Estudiante buscarPorCedulaNamedNative(String cedula) {
+		Query myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorCedulaNative", Estudiante.class);
+		myQuery.setParameter("dato_cedula", cedula);
+		return (Estudiante) myQuery.getSingleResult();
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestreNamedNative(String semestre1, String semestre2) {
+		Query myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorSemestreNative", Estudiante.class);
+		myQuery.setParameter("dato1_semestre", semestre1);
+		myQuery.setParameter("dato2_semestre", semestre2);
 		return myQuery.getResultList();
 	}
 

@@ -2,9 +2,13 @@ package com.uce.edu.demo.tarea13.service;
 
 import java.util.List;
 
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uce.edu.demo.repository.modelo.Persona;
 import com.uce.edu.demo.tarea13.repository.IEstudianteJpaRepository;
 import com.uce.edu.demo.tarea13.repository.to.Estudiante;
 
@@ -68,6 +72,26 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 	public List<Estudiante> buscarPorEdad(Integer edad1, Integer edad2) {
 		// TODO Auto-generated method stub
 		return this.estudianteJpaRepository.buscarPorEdad(edad1, edad2);
+	}
+
+	@Override
+	public Estudiante buscarPorCedulaNative(String cedula) {
+		return this.estudianteJpaRepository.buscarPorCedulaNative(cedula);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestreNative(String semestre1, String semestre2) {
+		return this.estudianteJpaRepository.buscarPorSemestreNative(semestre1, semestre2);
+	}
+
+	@Override
+	public Estudiante buscarPorCedulaNamedNative(String cedula) {
+		return this.estudianteJpaRepository.buscarPorCedulaNamedNative(cedula);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestreNamedNative(String semestre1, String semestre2) {
+		return this.estudianteJpaRepository.buscarPorSemestreNamedNative(semestre1, semestre2);
 	}
 
 }
