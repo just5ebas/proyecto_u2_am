@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.repository.modelo.Persona;
 import com.uce.edu.demo.tarea13.repository.IEstudianteJpaRepository;
-import com.uce.edu.demo.tarea13.repository.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
 
 @Service
 public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
@@ -29,13 +29,14 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 	}
 
 	@Override
-	public Estudiante consultar(String cedula) {
-		return this.estudianteJpaRepository.buscar(cedula);
+	public Estudiante consultar(Integer id) {
+		return this.estudianteJpaRepository.buscar(id);
 	}
 
 	@Override
-	public void eliminarRegistro(String cedula) {
-		this.estudianteJpaRepository.eliminar(cedula);
+	public void eliminarRegistro(Integer id) {
+		// TODO Auto-generated method stub
+		this.estudianteJpaRepository.eliminar(id);
 	}
 
 	@Override
@@ -92,6 +93,16 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 	@Override
 	public List<Estudiante> buscarPorSemestreNamedNative(String semestre1, String semestre2) {
 		return this.estudianteJpaRepository.buscarPorSemestreNamedNative(semestre1, semestre2);
+	}
+
+	@Override
+	public List<Estudiante> busquedaDinamica1(String carrera, String genero) {
+		return this.estudianteJpaRepository.busquedaDinamica1(carrera, genero);
+	}
+
+	@Override
+	public List<Estudiante> busquedaDinamica2(Integer edad1, Integer edad2, String semestre) {
+		return this.estudianteJpaRepository.busquedaDinamica2(edad1, edad2, semestre);
 	}
 
 }

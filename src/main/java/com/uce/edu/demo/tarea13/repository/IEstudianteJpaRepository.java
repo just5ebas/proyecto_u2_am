@@ -2,7 +2,7 @@ package com.uce.edu.demo.tarea13.repository;
 
 import java.util.List;
 
-import com.uce.edu.demo.tarea13.repository.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
 
 public interface IEstudianteJpaRepository {
 
@@ -10,9 +10,9 @@ public interface IEstudianteJpaRepository {
 
 	public void actualizar(Estudiante e);
 
-	public Estudiante buscar(String cedula);
+	public Estudiante buscar(Integer id);
 
-	public void eliminar(String cedula);
+	public void eliminar(Integer id);
 
 	public List<Estudiante> buscarTodos();
 
@@ -33,5 +33,9 @@ public interface IEstudianteJpaRepository {
 	public Estudiante buscarPorCedulaNamedNative(String cedula);
 
 	public List<Estudiante> buscarPorSemestreNamedNative(String semestre1, String semestre2);
+
+	public List<Estudiante> busquedaDinamica1(String carrera, String genero);
+
+	public List<Estudiante> busquedaDinamica2(Integer edad1, Integer edad2, String semestre);
 
 }

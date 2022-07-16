@@ -6,13 +6,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
-import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.tarea13.repository.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
 
 @Repository
 @Transactional
@@ -36,15 +39,15 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 	}
 
 	@Override
-	public Estudiante buscar(String cedula) {
-		LOG.info("Buscando en la base de datos al estudiante con cedula: " + cedula);
-		return this.entityManager.find(Estudiante.class, cedula);
+	public Estudiante buscar(Integer id) {
+		LOG.info("Buscando en la base de datos al estudiante con id: " + id);
+		return this.entityManager.find(Estudiante.class, id);
 	}
 
 	@Override
-	public void eliminar(String cedula) {
-		LOG.info("Eliminando de la base de datos al estudiante de cedula: " + cedula);
-		this.entityManager.remove(this.buscar(cedula));
+	public void eliminar(Integer id) {
+		LOG.info("Eliminando de la base de datos al estudiante de id: " + id);
+		this.entityManager.remove(this.buscar(id));
 	}
 
 	@Override
@@ -103,7 +106,9 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 
 	@Override
 	public List<Estudiante> buscarPorSemestreNative(String semestre1, String semestre2) {
-		Query myQuery = this.entityManager.createNativeQuery("SELECT * FROM estudiante WHERE semestre = :dato1_semestre OR semestre = :dato2_semestre", Estudiante.class);
+		Query myQuery = this.entityManager.createNativeQuery(
+				"SELECT * FROM estudiante WHERE semestre = :dato1_semestre OR semestre = :dato2_semestre",
+				Estudiante.class);
 		myQuery.setParameter("dato1_semestre", semestre1);
 		myQuery.setParameter("dato2_semestre", semestre2);
 		return myQuery.getResultList();
@@ -122,6 +127,63 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		myQuery.setParameter("dato1_semestre", semestre1);
 		myQuery.setParameter("dato2_semestre", semestre2);
 		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> busquedaDinamica1(String carrera, String genero) {
+		// Buscar a los estudiantes por su genero, si son hombres mostrar unicamente los
+		// que pertenezcan a la carrera mencionada. Si son mujeres, no se hara ninguna
+		// comparacion, y se devolveran todas las mujeres.
+
+		CriteriaBuilder myBuilder = this.entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<Estudiante> myQuery = myBuilder.createQuery(Estudiante.class);
+
+		Root<Estudiante> estudianteFrom = myQuery.from(Estudiante.class);
+
+		Predicate predicadoGenero = myBuilder.equal(estudianteFrom.get("genero"), genero);
+		Predicate predicadoCarrera = myBuilder.equal(estudianteFrom.get("carrera"), carrera);
+
+		Predicate predicadoFinal = null;
+		if (genero.equalsIgnoreCase("M")) {
+			predicadoFinal = myBuilder.and(predicadoGenero, predicadoCarrera);
+		} else {
+			predicadoFinal = predicadoGenero;
+		}
+
+		myQuery.select(estudianteFrom).where(predicadoFinal);
+
+		TypedQuery<Estudiante> queryFinal = this.entityManager.createQuery(myQuery);
+
+		return queryFinal.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> busquedaDinamica2(Integer edad1, Integer edad2, String semestre) {
+		// Este metodo buscara a los estudiantes de cuarto semestre. Si no son parte de
+		// ese semestre, entonces buscara a los estudiantes dentro del rango de edad.
+
+		CriteriaBuilder myBuilder = this.entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<Estudiante> myQuery = myBuilder.createQuery(Estudiante.class);
+
+		Root<Estudiante> estudianteFrom = myQuery.from(Estudiante.class);
+
+		Predicate predicadoEdad = myBuilder.between(estudianteFrom.get("edad"), edad1, edad2);
+		Predicate predicadoSemestre = myBuilder.equal(estudianteFrom.get("semestre"), semestre);
+
+		Predicate predicadoFinal = null;
+		if (semestre.equalsIgnoreCase("Cuarto")) {
+			predicadoFinal = predicadoSemestre;
+		} else {
+			predicadoFinal = predicadoEdad;
+		}
+
+		myQuery.select(estudianteFrom).where(predicadoFinal);
+
+		TypedQuery<Estudiante> queryFinal = this.entityManager.createQuery(myQuery);
+
+		return queryFinal.getResultList();
 	}
 
 }

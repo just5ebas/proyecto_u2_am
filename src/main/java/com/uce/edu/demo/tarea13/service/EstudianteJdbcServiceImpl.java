@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.tarea13.repository.IEstudianteJdbcRepository;
-import com.uce.edu.demo.tarea13.repository.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
 
 @Service
 public class EstudianteJdbcServiceImpl implements IEstudianteJdbcService {
@@ -25,15 +25,15 @@ public class EstudianteJdbcServiceImpl implements IEstudianteJdbcService {
 	}
 
 	@Override
-	public Estudiante consultar(String cedula) {
+	public Estudiante consultar(Integer id) {
 		// TODO Auto-generated method stub
-		return this.estudianteJdbcRepository.buscar(cedula);
+		return this.estudianteJdbcRepository.buscar(id);
 	}
 
 	@Override
-	public void eliminarRegistro(String cedula) {
+	public void eliminarRegistro(Integer id) {
 		// TODO Auto-generated method stub
-		this.estudianteJdbcRepository.eliminar(cedula);
+		this.estudianteJdbcRepository.eliminar(id);
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.uce.edu.demo.tarea13.service;
 
-import com.uce.edu.demo.tarea13.repository.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
 
 public interface IEstudianteJdbcService {
 	
@@ -8,8 +8,8 @@ public interface IEstudianteJdbcService {
 	
 	public void renovarInformacion(Estudiante e);
 	
-	public Estudiante consultar(String cedula);
+	public Estudiante consultar(Integer id);
 	
-	public void eliminarRegistro(String cedula);
+	public void eliminarRegistro(Integer id);
 	
 }

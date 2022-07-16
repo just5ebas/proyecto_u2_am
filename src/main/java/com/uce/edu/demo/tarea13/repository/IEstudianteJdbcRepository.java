@@ -1,6 +1,6 @@
 package com.uce.edu.demo.tarea13.repository;
 
-import com.uce.edu.demo.tarea13.repository.to.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
 
 public interface IEstudianteJdbcRepository {
 
@@ -8,8 +8,8 @@ public interface IEstudianteJdbcRepository {
 
 	public void actualizar(Estudiante e);
 
-	public Estudiante buscar(String cedula);
+	public Estudiante buscar(Integer id);
 
-	public void eliminar(String cedula);
+	public void eliminar(Integer id);
 
 }
