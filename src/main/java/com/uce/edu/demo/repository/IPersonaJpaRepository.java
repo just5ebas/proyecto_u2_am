@@ -20,6 +20,10 @@ public interface IPersonaJpaRepository {
 
 	public Persona buscarPorCedulaCriteriaApi(String cedula);
 
+	public Persona buscarDinamicamente(String nombre, String apellido, String genero);
+
+	public Persona buscarDinamicamentePredicados(String nombre, String apellido, String genero);
+
 	public List<Persona> buscarPorApellido(String apellido);
 
 	public List<Persona> buscarPorNombreApellido(String nombre, String apellido);
