@@ -16,6 +16,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.EstudianteContadorCarrera;
+import com.uce.edu.demo.tarea13.repository.modelo.EstudianteSencillo;
 
 @Repository
 @Transactional
@@ -184,6 +186,34 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		TypedQuery<Estudiante> queryFinal = this.entityManager.createQuery(myQuery);
 
 		return queryFinal.getResultList();
+	}
+
+	public List<EstudianteContadorCarrera> buscarCantidadPorCarrera(String carrera) {
+		// SELECT estu_carrera, COUNT(estu_carrera) FROM estudiante GROUP BY
+		// estu_carrera
+		// SELECT NEW
+		// com.uce.edu.demo.tarea13.repository.modelo.EstudianteContadorCarrera
+		// (e.carrera, COUNT(e.carrera)) FROM Estudiante e GROUP BY e.carrera
+		TypedQuery<EstudianteContadorCarrera> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.tarea13.repository.modelo.EstudianteContadorCarrera(e.carrera, COUNT(e.carrera)) FROM Estudiante e GROUP BY e.carrera",
+				EstudianteContadorCarrera.class);
+
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<EstudianteSencillo> buscarPorApellidoSencillo(String apellido) {
+		// SELECT estu_nombre, estu_apellido, estu_genero FROM estudiante WHERE
+		// estu_apellido LIKE ?
+		// SELECT NEW
+		// com.uce.edu.demo.tarea13.repository.modelo.EstudianteSencillo(e.nombre,
+		// e.apellido, e.genero) FROM Estudiante e WHERE e.apellido LIKE :dato_apellido
+		TypedQuery<EstudianteSencillo> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.tarea13.repository.modelo.EstudianteSencillo(e.nombre, e.apellido, e.genero) FROM Estudiante e WHERE e.apellido LIKE :dato_apellido",
+				EstudianteSencillo.class);
+		apellido = apellido + "%";
+		myQuery.setParameter("dato_apellido", apellido);
+		return myQuery.getResultList();
 	}
 
 }

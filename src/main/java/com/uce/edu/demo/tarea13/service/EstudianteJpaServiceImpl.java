@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.uce.edu.demo.repository.modelo.Persona;
 import com.uce.edu.demo.tarea13.repository.IEstudianteJpaRepository;
 import com.uce.edu.demo.tarea13.repository.modelo.Estudiante;
+import com.uce.edu.demo.tarea13.repository.modelo.EstudianteContadorCarrera;
+import com.uce.edu.demo.tarea13.repository.modelo.EstudianteSencillo;
 
 @Service
 public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
@@ -105,4 +107,13 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 		return this.estudianteJpaRepository.busquedaDinamica2(edad1, edad2, semestre);
 	}
 
+	@Override
+	public List<EstudianteContadorCarrera> buscarCantidadPorCarrera(String carrera) {
+		return this.estudianteJpaRepository.buscarCantidadPorCarrera(carrera);
+	}
+
+	@Override
+	public List<EstudianteSencillo> buscarPorApellidoSencillo(String apellido) {
+		return this.estudianteJpaRepository.buscarPorApellidoSencillo(apellido);
+	}
 }
