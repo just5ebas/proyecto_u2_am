@@ -1,5 +1,6 @@
 package com.uce.edu.demo.tarea13.repository.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -47,25 +49,30 @@ public class Estudiante {
 	@Column(name = "estu_carrera")
 	private String carrera;
 
-	public Estudiante() {
-	}
+	@OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL)
+	private Pasante pasante;
 
-	public Estudiante(Integer id, String cedula, String nombre, String apellido, Integer edad, String semestre,
-			String carrera) {
-		super();
-		this.id = id;
-		this.cedula = cedula;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.edad = edad;
-		this.semestre = semestre;
-		this.carrera = carrera;
+	public Estudiante() {
 	}
 
 	@Override
 	public String toString() {
 		return "Estudiante [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad
 				+ ", semestre=" + semestre + "]";
+	}
+
+	public Estudiante(Integer id, String cedula, String nombre, String apellido, Integer edad, String genero,
+			String semestre, String carrera, Pasante pasante) {
+		super();
+		this.id = id;
+		this.cedula = cedula;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.edad = edad;
+		this.genero = genero;
+		this.semestre = semestre;
+		this.carrera = carrera;
+		this.pasante = pasante;
 	}
 
 	// GET & SET
@@ -133,4 +140,11 @@ public class Estudiante {
 		this.carrera = carrera;
 	}
 
+	public Pasante getPasante() {
+		return pasante;
+	}
+
+	public void setPasante(Pasante pasante) {
+		this.pasante = pasante;
+	}
 }
