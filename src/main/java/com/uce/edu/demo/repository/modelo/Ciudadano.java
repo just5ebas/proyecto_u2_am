@@ -1,5 +1,7 @@
 package com.uce.edu.demo.repository.modelo;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,10 +28,25 @@ public class Ciudadano {
 	@Column(name = "ciud_apellido")
 	private String apellido;
 
+	@Column(name = "ciud_cedula")
+	private String cedula;
+
+	@Column(name = "ciud_fecha_nacimiento")
+	private LocalDateTime fechaNacimiento;
+
 	// el nombre que pongamos aqui debe ser el mismo nombre con el que se mappea en
 	// la tabla hija
 	@OneToOne(mappedBy = "ciudadano", cascade = CascadeType.ALL)
 	private Empleado empleado;
+
+	@OneToOne(mappedBy = "ciudadano", cascade = CascadeType.ALL)
+	private Pasaporte pasaporte;
+
+	@Override
+	public String toString() {
+		return "Ciudadano [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula
+				+ ", fechaNacimiento=" + fechaNacimiento + "]";
+	}
 
 	// GET & SET
 	public Integer getId() {
@@ -62,6 +79,30 @@ public class Ciudadano {
 
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public LocalDateTime getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Pasaporte getPasaporte() {
+		return pasaporte;
+	}
+
+	public void setPasaporte(Pasaporte pasaporte) {
+		this.pasaporte = pasaporte;
 	}
 
 }
