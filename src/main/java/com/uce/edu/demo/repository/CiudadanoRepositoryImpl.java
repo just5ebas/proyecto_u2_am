@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.ProyectoU2AmApplication;
-import com.uce.edu.demo.repository.modelo.Ciudadano;
+import com.uce.edu.demo.repository.modelo.onetoone.Ciudadano;
 
 @Repository
 @Transactional
