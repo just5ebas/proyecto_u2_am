@@ -12,16 +12,16 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "autor1")
+@Table(name = "autor2")
 public class Autor1 {
 
 	@Id
-	@Column(name = "autr1_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "autr1_id_seq")
-	@SequenceGenerator(name = "autr1_id_seq", sequenceName = "autr1_id_seq", allocationSize = 1)
+	@Column(name = "autr2_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "autr2_id_seq")
+	@SequenceGenerator(name = "autr2_id_seq", sequenceName = "autr2_id_seq", allocationSize = 1)
 	private Integer id;
 
-	@Column(name = "autr1_nombre")
+	@Column(name = "autr2_nombre")
 	private String nombre;
 
 	@OneToMany(mappedBy = "autor")

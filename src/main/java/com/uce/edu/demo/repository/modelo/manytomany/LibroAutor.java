@@ -11,21 +11,21 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "libro1_autor1")
+@Table(name = "libro2_autor2")
 public class LibroAutor {
 
 	@Id
-	@Column(name = "liau1_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "liau1_id_seq")
-	@SequenceGenerator(name = "liau1_id_seq", sequenceName = "liau1_id_seq", allocationSize = 1)
+	@Column(name = "liau2_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "liau2_id_seq")
+	@SequenceGenerator(name = "liau2_id_seq", sequenceName = "liau2_id_seq", allocationSize = 1)
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "liau1_id_libro")
+	@JoinColumn(name = "liau2_id_libro")
 	private Libro1 libro;
 
 	@ManyToOne
-	@JoinColumn(name = "liau1_id_autor")
+	@JoinColumn(name = "liau2_id_autor")
 	private Autor1 autor;
 
 	// GET & SET

@@ -33,7 +33,8 @@ public class ProyectoU2AmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-
+		
+		// LIBRO CON DOS AUTORES
 		Libro1 l1 = new Libro1();
 		l1.setTitulo("Moon Knight #1");
 		l1.setCantidadPaginas(51);
@@ -50,6 +51,26 @@ public class ProyectoU2AmApplication implements CommandLineRunner {
 
 		this.libroAutorService.insertar(a1.getNombre(), l1.getTitulo());
 		this.libroAutorService.insertar(a2.getNombre(), l1.getTitulo());
+		
+		// AUTOR CON DOS LIBROS
+		Autor1 a3 = new Autor1();
+		a3.setNombre("Oscar Wilde");
+		
+		Libro1 l2 = new Libro1();
+		l2.setTitulo("El retrato de Dorian Gray");
+		l2.setCantidadPaginas(194);
+		
+		Libro1 l3 = new Libro1();
+		l3.setTitulo("El gigante egoista");
+		l3.setCantidadPaginas(32);
+		
+		this.iAutor1Service.insertar(a3);
+		this.iLibro1Service.insertar(l2);
+		this.iLibro1Service.insertar(l3);
+
+		this.libroAutorService.insertar(a3.getNombre(), l2.getTitulo());
+		this.libroAutorService.insertar(a3.getNombre(), l3.getTitulo());
+		
 
 	}
 
