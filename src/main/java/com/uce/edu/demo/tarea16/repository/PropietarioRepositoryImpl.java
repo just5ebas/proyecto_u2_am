@@ -27,15 +27,15 @@ public class PropietarioRepositoryImpl implements IPropietarioRepository {
 	}
 
 	@Override
-	public void eliminar(String cedula) {
-		LOG.info("Eliminando al propietario de cedula: " + cedula);
-		this.entityManager.remove(this.consultar(cedula));
+	public void eliminar(Integer id) {
+		LOG.info("Eliminando al propietario de cedula: " + id);
+		this.entityManager.remove(this.consultar(id));
 	}
 
 	@Override
-	public Propietario consultar(String cedula) {
-		LOG.info("Buscando al propietario de cedula: " + cedula);
-		return this.entityManager.find(Propietario.class, cedula);
+	public Propietario consultar(Integer id) {
+		LOG.info("Buscando al propietario de cedula: " + id);
+		return this.entityManager.find(Propietario.class, id);
 	}
 
 }

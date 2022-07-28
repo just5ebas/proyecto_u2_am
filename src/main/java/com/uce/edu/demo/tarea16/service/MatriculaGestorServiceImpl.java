@@ -35,10 +35,10 @@ public class MatriculaGestorServiceImpl implements IMatriculaGestorService {
 	private IMatriculaService matriculaServiceLiviano;
 
 	@Override
-	public void generar(String cedula, String placa) {
+	public void generar(Integer idProp, Integer idVehi) {
 		// TODO Auto-generated method stub
-		Propietario p = this.iPropietarioRepository.consultar(cedula);
-		Vehiculo v = this.iVehiculoRepository.buscar(placa);
+		Propietario p = this.iPropietarioRepository.consultar(idProp);
+		Vehiculo v = this.iVehiculoRepository.buscar(idProp);
 
 		String tipo = v.getTipo();
 		BigDecimal valorMatricula;
@@ -56,9 +56,9 @@ public class MatriculaGestorServiceImpl implements IMatriculaGestorService {
 
 		Matricula matricula = new Matricula();
 		matricula.setFechaMatricula(LocalDateTime.now());
-		matricula.setCedulaPropietario(p.getCedula());
+		matricula.setPropietario(p);
 		matricula.setValor(valorMatricula);
-		matricula.setPlacaVehiculo(v.getPlaca());
+		matricula.setVehiculo(v);
 
 		this.iMatriculaRepository.crear(matricula);
 

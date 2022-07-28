@@ -1,10 +1,15 @@
 package com.uce.edu.demo.tarea16.repository.modelo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +17,11 @@ import javax.persistence.Table;
 public class Vehiculo {
 
 	@Id
+	@Column(name = "vehi_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehi_id_seq")
+	@SequenceGenerator(name = "vehi_id_seq", sequenceName = "vehi_id_seq", allocationSize = 1)
+	private Integer id;
+
 	@Column(name = "vehi_placa")
 	private String placa;
 
@@ -24,9 +34,13 @@ public class Vehiculo {
 	@Column(name = "vehi_precio")
 	private BigDecimal precio;
 
+	@OneToMany(mappedBy = "vehiculo")
+	private List<Matricula> matriculas;
+
 	@Override
 	public String toString() {
-		return "Vehiculo [marca=" + marca + ", placa=" + placa + ", tipo=" + tipo + ", precio=" + precio + "]";
+		return "Vehiculo [id=" + id + ", placa=" + placa + ", marca=" + marca + ", tipo=" + tipo + ", precio=" + precio
+				+ "]";
 	}
 
 	// GET & SET
@@ -60,6 +74,22 @@ public class Vehiculo {
 
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public List<Matricula> getMatriculas() {
+		return matriculas;
+	}
+
+	public void setMatriculas(List<Matricula> matriculas) {
+		this.matriculas = matriculas;
 	}
 
 }

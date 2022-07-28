@@ -8,8 +8,8 @@ public interface IVehiculoService {
 
 	public void actualizar(Vehiculo v);
 
-	public void eliminar(String placa);
+	public void eliminar(Integer id);
 
-	public Vehiculo buscar(String placa);
+	public Vehiculo buscar(Integer id);
 
 }

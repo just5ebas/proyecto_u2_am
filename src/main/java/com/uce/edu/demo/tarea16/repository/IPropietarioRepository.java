@@ -6,8 +6,8 @@ public interface IPropietarioRepository {
 
 	public void crear(Propietario p);
 
-	public void eliminar(String cedula);
+	public void eliminar(Integer id);
 	
-	public Propietario consultar(String cedula);
+	public Propietario consultar(Integer id);
 
 }

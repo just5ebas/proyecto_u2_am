@@ -32,15 +32,15 @@ public class VehiculoRepositoryImpl implements IVehiculoRepository {
 	}
 
 	@Override
-	public void eliminar(String placa) {
-		LOG.info("Eliminando al vehiculo de placa: " + placa);
-		this.entityManager.remove(this.buscar(placa));
+	public void eliminar(Integer id) {
+		LOG.info("Eliminando al vehiculo de id: " + id);
+		this.entityManager.remove(this.buscar(id));
 	}
 
 	@Override
-	public Vehiculo buscar(String placa) {
-		LOG.info("Buscando al vehiculo de placa: " + placa);
-		return this.entityManager.find(Vehiculo.class, placa);
+	public Vehiculo buscar(Integer id) {
+		LOG.info("Buscando al vehiculo de id: " + id);
+		return this.entityManager.find(Vehiculo.class, id);
 	}
 
 }
